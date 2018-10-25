@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^logout$', views.do_logout, name='logout'),
     url(r'^home$', views.home, name='home'),
     url(r'^admin/', admin.site.urls),
-    url(r'^host/', include('host.urls')),
+    # cmdb
+    url(r'^host/', include('host.urls'),name='host'),
+    url(r'^task/', include('task.urls'),name='task'),
 ]

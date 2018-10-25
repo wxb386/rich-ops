@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}主机列表{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <h1>欢迎使用CMDB</h1>
+    <a href="/host/input/">增加新主机</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>IP地址</td>
+            <td>主机名</td>
+            <td>组</td>
+            <td>操作</td>
+        </tr>
+
+        </thead>
+        <tbody>
+        {% for item in data %}
+        <tr>
+            <td>{{ item.ip }}</td>
+            <td>{{ item.hostname }}</td>
+            <td>{{ item.group }}</td>
+            <td>
+                <form action="/host/input/" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="insert">
+                    <input type="hidden" name="ip" value="{{ item.ip }}">
+                    <input type="hidden" name="hostname" value="{{ item.hostname }}">
+                    <input type="hidden" name="group" value="{{ item.group }}">
+                    <input type="submit" value="修改">
+                </form>
+                <form action="/host/apis/" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="ip" value="{{ item.ip }}">
+                    <input type="submit" value="删除">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+{% endblock %}
