@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from . import views
+import host.views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -24,6 +25,9 @@ urlpatterns = [
     url(r'^home$', views.home, name='home'),
     url(r'^admin/', admin.site.urls),
     # cmdb
-    url(r'^host/', include('host.urls'),name='host'),
-    url(r'^task/', include('task.urls'),name='task'),
+    url(r'^host/input/$', host.views.host_input, name='host_input'),
+    url(r'^host/apis/$', host.views.host_apis, name='host_apis'),
+    url(r'^group/input/$', host.views.group_input, name='group_input'),
+    url(r'^group/apis/$', host.views.group_apis, name='group_apis'),
+    url(r'^host/', host.views.host_list, name='host_list'),
 ]

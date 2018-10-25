@@ -3,19 +3,41 @@
 {% block content %}
 <div class="container-fluid">
     <h1>欢迎使用CMDB</h1>
+    <a href="/group/input/">增加新群组</a>
+    <table class="table">
+        <tr>
+            <th>服务器群组</th>
+            <th>操作</th>
+        </tr>
+        {% for item in groups %}
+        <tr>
+            <td>{{ item.group }}</td>
+            <td>
+                <form action="/group/input/" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="insert">
+                    <input type="hidden" name="group" value="{{ item.group }}">
+                    <input type="submit" value="修改">
+                </form>
+                <form action="/group/apis/" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="group" value="{{ item.group }}">
+                    <input type="submit" value="删除">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
     <a href="/host/input/">增加新主机</a>
     <table class="table">
-        <thead>
         <tr>
-            <td>IP地址</td>
-            <td>主机名</td>
-            <td>组</td>
-            <td>操作</td>
+            <th>IP地址</th>
+            <th>主机名</th>
+            <th>组</th>
+            <th>操作</th>
         </tr>
-
-        </thead>
-        <tbody>
-        {% for item in data %}
+        {% for item in hosts %}
         <tr>
             <td>{{ item.ip }}</td>
             <td>{{ item.hostname }}</td>
@@ -38,8 +60,6 @@
             </td>
         </tr>
         {% endfor %}
-        </tbody>
-
     </table>
 </div>
 {% endblock %}

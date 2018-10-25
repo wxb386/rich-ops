@@ -5,9 +5,17 @@
     <form method="POST" action="/host/apis/">
         {% csrf_token %}
         <input type="hidden" name="action" value="insert">
-        <p>ip地址:<input type="text" name="ip" value="{{ ip }}"></p>
-        <p>主机名:<input type="text" name="hostname" value="{{ hostname }}"></p>
-        <p>组:<input type="text" name="group" value="{{ group }}"></p>
+        <p>ip地址:<input type="text" name="ip" value="{{ host.ip }}"></p>
+        <p>主机名:<input type="text" name="hostname" value="{{ host.hostname }}"></p>
+
+        <p>组:
+            <select name="group">
+                {% for item in group %}
+                <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </p>
+
         <p><input type="submit" value="提交"></p>
     </form>
 </div>

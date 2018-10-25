@@ -4,14 +4,14 @@ from django.db import models
 # Create your models here.
 
 class Group(models.Model):
-    group = models.CharField(max_length=50, unique=True, null=False)
+    group = models.CharField(max_length=50, primary_key=True)
 
     def __str__(self):
         return self.group
 
 
 class Host(models.Model):
-    ip = models.CharField(max_length=15, unique=True, null=False)
+    ip = models.GenericIPAddressField(primary_key=True)
     hostname = models.CharField(max_length=50, null=False)
     group = models.ForeignKey(Group, on_delete=models.CASCADE, default='')
 
