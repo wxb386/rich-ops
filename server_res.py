@@ -45,23 +45,24 @@ def memory():
 def network():
     # 网卡基本信息
     net_if_stats = psutil.net_if_stats()
-    static['net_if'] = {}
+    net_if = {}
     for i in net_if_stats:
         speed = net_if_stats[i][2]
         # 有速率的网卡是物理网卡,链路聚合的网卡状况未知
         # 有的网卡速率是65535的
         if speed == 0 or speed % 100 != 0: continue
-        static['net_if'][i] = speed
-
-    #
-    net_if_addrs = psutil.net_if_addrs()
-    for i in net_if_addrs:
-        print(net_if_addrs[i][0][1])
-    #
+        net_if[i] = {'speed': speed}
+    static['net_if'] = net_if
+    # 网络io信息
+    net_if = {}
     net_io_counters = psutil.net_io_counters(pernic=True)
-    # for i in net_io_counters:
-    #     print(i,net_io_counters[i])
-    # print(net_io_counters)
+    for i in net_if:
+        net_if[i]['bytes_sent'] = net_io_counters[i].bytes_sent
+        net_if[i]['bytes_recv'] = net_io_counters[i].bytes_recv
+        net_if[i]['packets_sent'] = net_io_counters[i].packets_sent
+        net_if[i]['packets_recv'] = net_io_counters[i].packets_recv
+
+    dynamic['net_if'] = net_if
 
 
 def disk():
@@ -86,7 +87,7 @@ def disk():
         io['read_bytes'] = disk_io_counters[i][2]
         io['write_bytes'] = disk_io_counters[i][3]
         count[i] = io
-    static['disk_io_counters'] = count
+    dynamic['disk_io_counters'] = count
 
 
 def server():
@@ -94,8 +95,8 @@ def server():
 
 
 if __name__ == '__main__':
-    # cpu()
-    # memory()
+    cpu()
+    memory()
     network()
     disk()
     server()

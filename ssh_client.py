@@ -32,7 +32,7 @@ def login():
 
 def ssh(trans):
     '''
-    传入ssh-socket对象,返回ssh-client对象,可以执行命令和返回结果
+    传入ssh-socket对象,返回ssh-client对象,可以执行命令和返回结果.
 
     stdin, stdout, stderr = ssh-client.exec_command('df -hl')
     print(stdout.read().decode())
@@ -52,10 +52,11 @@ def ssh(trans):
 
 def sftp(trans):
     '''
-    传入ssh-socket对象,返回sftp-client对象,可以上传和下载文件
+    传入ssh-socket对象,返回sftp-client对象,仅可以上传和下载文件.
+    传输目录需要先获取目录结构,再逐一传输.
 
-    sftp-client.put(本地源路径, 远程目标路径)
-    sftp-client.get(远程源路径, 本地目标路径)
+    sftp-client.put(本地源文件, 远程目标文件)
+    sftp-client.get(远程源文件, 本地目标文件)
 
     最后,关闭trans
 
