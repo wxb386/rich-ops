@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 # 服务器的资源数据获取,主要在python2的环境使用
 
 import psutil

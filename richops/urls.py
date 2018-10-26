@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from . import views
 import host.views
+import task.views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -30,4 +31,12 @@ urlpatterns = [
     url(r'^host/input/$', host.views.host_input, name='host_input'),
     url(r'^host/apis/$', host.views.host_apis, name='host_apis'),
     url(r'^host/', host.views.host_list, name='host_list'),
+    # task
+    url(r'^task/input/(?P<func>\w+)/$', task.views.task_input, name='task_input'),
+    url(r'^param/apis/$', task.views.param_apis, name='param_apis'),
+    # url(r'^task/input/$', task.views.task_input, name='task_input'),
+    url(r'^task/apis/$', task.views.task_apis, name='task_apis'),
+    # url(r'^format/input/$', task.views.format_input, name='format_input'),
+    url(r'^format/apis/$', task.views.format_apis, name='format_apis'),
+    url(r'^task/', task.views.task_list, name='task_list'),
 ]

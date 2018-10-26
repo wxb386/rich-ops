@@ -3,6 +3,93 @@
 {% block content %}
 <div class="container-fluid">
     <h1>欢迎使用CMDB</h1>
-    <a href="/host/input/">增加新任务</a>
+    <a href="/format/input/">增加新格式</a>
+    <table class="table">
+        <tr>
+            <th>格式</th>
+            <th>解析器</th>
+            <th>操作</th>
+        </tr>
+        {% for item in formats %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.command }}</td>
+            <td>
+                {% for btn in format_buttons %}
+                <form action="{{ btn.url }}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="{{ btn.action }}">
+                    <input type="hidden" name="name" value="{{ item.name }}">
+                    <input type="submit" value="{{ btn.value }}">
+                </form>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/param/input/">增加新参数</a>
+    <table class="table">
+        <tr>
+            <th>参数名称</th>
+            <th>目标路径</th>
+            <th>格式</th>
+            <th>内容</th>
+            <th>创建时间</th>
+            <th>修改时间</th>
+            <th>操作</th>
+        </tr>
+        {% for item in params %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.path }}</td>
+            <td>{{ item.format }}</td>
+            <td>{{ item.content }}</td>
+            <td>{{ item.created }}</td>
+            <td>{{ item.updated }}</td>
+            <td>
+                {% for btn in param_buttons %}
+                <form action="{{ btn.url }}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="{{ btn.action }}">
+                    <input type="hidden" name="name" value="{{ item.name }}">
+                    <input type="submit" value="{{ btn.value }}">
+                </form>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/task/input/">增加新任务</a>
+    <table class="table">
+        <tr>
+            <th>任务名称</th>
+            <th>目标路径</th>
+            <th>格式</th>
+            <th>内容</th>
+            <th>创建时间</th>
+            <th>修改时间</th>
+            <th>操作</th>
+        </tr>
+        {% for item in tasks %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.path }}</td>
+            <td>{{ item.format }}</td>
+            <td>{{ item.content }}</td>
+            <td>{{ item.created }}</td>
+            <td>{{ item.updated }}</td>
+            <td>
+                {% for btn in task_buttons %}
+                <form action="{{ btn.url }}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="{{ btn.action }}">
+                    <input type="hidden" name="name" value="{{ item.name }}">
+                    <input type="submit" value="{{ btn.value }}">
+                </form>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 {% endblock %}

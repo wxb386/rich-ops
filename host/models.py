@@ -13,7 +13,7 @@ class Group(models.Model):
 class Host(models.Model):
     ip = models.GenericIPAddressField(primary_key=True)
     hostname = models.CharField(max_length=50, null=False)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, default='')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
     def __str__(self):
         return '%s %s -> %s' % (self.ip, self.hostname, self.group)
