@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}主机列表{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <h1>欢迎使用CMDB</h1>
+    <form action="/cmdb/input/" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="_method" value="insert">
+        <input type="hidden" name="_database" value="address">
+        <input type="submit" value="增加新地址">
+    </form>
+    <table class="table">
+        <tr>
+            <th>IP地址</th>
+            <th>跳转路由</th>
+            <th>跳转端口</th>
+            <th>操作</th>
+        </tr>
+        {% for item in addresses %}
+        <tr>
+            <td>{{ item.ip }}</td>
+            <td>{{ item.route }}</td>
+            <td>{{ item.port }}</td>
+            <td>
+                {% for b in button %}
+                <form action="{{ b.url }}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="_method" value="{{ b.method }}">
+                    <input type="hidden" name="_database" value="address">
+                    <input type="hidden" name="_pk" value="{{ item.ip }}">
+                    <input type="submit" value="{{ b.submit }}">
+                </form>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <!--
+    以下是主机的列表
+    -->
+    <form action="/cmdb/input/" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="_method" value="insert">
+        <input type="hidden" name="_database" value="host">
+        <input type="submit" value="增加新主机">
+    </form>
+    <table class="table">
+        <tr>
+            <th>主机名</th>
+            <th>IP地址</th>
+            <th>群组</th>
+            <th>CPU</th>
+            <th>内存</th>
+            <th>网络</th>
+            <th>磁盘</th>
+            <th>操作</th>
+        </tr>
+        {% for item in hosts %}
+        <tr>
+            <td>{{ item.hostname }}</td>
+            <td>{{ item.ip }}</td>
+            <td>{{ item.group }}</td>
+            <td>{{ item.cpu_core }}</td>
+            <td>{{ item.memory_total }}</td>
+            <td>{{ item.nic_list }}</td>
+            <td>{{ item.disk_list }}</td>
+            <td>
+                {% for b in button %}
+                <form action="{{ b.url }}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="_method" value="{{ b.method }}">
+                    <input type="hidden" name="_database" value="host">
+                    <input type="hidden" name="_pk" value="{{ item.ip }}">
+                    <input type="submit" value="{{ b.submit }}">
+                </form>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

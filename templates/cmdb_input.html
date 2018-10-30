@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}{{ database }}数据录入{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <form method="POST" action="/cmdb/apis/">
+        {% csrf_token %}
+        <input type="hidden" name="_method" value="{{ method }}">
+        <input type="hidden" name="_database" value="{{ database }}">
+
+        {% if address %}
+        <p>IP地址:<input type="text" name="_pk" value="{{ input.ip }}"></p>
+        <p>跳转路由:<input type="text" name="route" value="{{ input.route }}"></p>
+        <p>跳转端口:<input type="text" name="port" value="{{ input.port }}"></p>
+
+        {% elif host %}
+
+        <p>主机名:<input type="text" name="_pk" value="{{ input.hostname }}"></p>
+        <p>IP地址:
+            {% for i in input.ip %}
+            <input type="checkbox" name="ip" value="{{ i.ip }}"/>
+            {% endfor %}
+        </p>
+        <p>群组:<input type="text" name="group" value="{{ input.group }}"></p>
+        <p>CPU:<input type="text" name="cpu_core" value="{{ input.cpu_core }}"></p>
+        <p>内存:<input type="text" name="memory_total" value="{{ input.memory_total }}"></p>
+        <p>网络:<input type="text" name="nic_list" value="{{ input.nic_list }}"></p>
+        <p>磁盘:<input type="text" name="disk_list" value="{{ input.disk_list }}"></p>
+
+        {% elif param %}
+
+        {% elif task %}
+
+        {% endif %}
+
+        <p><input type="submit" value="提交"></p>
+    </form>
+</div>
+{% endblock %}
