@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
 from .models import Address, Host, Param, Task
 
+from time import sleep
+
 
 # Create your views here.
 
@@ -50,13 +52,11 @@ def cmdb_input(request):
             out['input'] = model_to_dict(address)
     elif database == 'host':
         if method == 'insert':
-            host = {}
-            host['ip'] = Address.objects.all()
-            out['host'] = host
-            print(out)
+            out['value'] = Address.objects.all()
         elif method == 'update':
-            host = Host.objects.get(ip=pk)
+            host = Host.objects.get(hostname=pk)
             out['input'] = model_to_dict(host)
+            out['value'] = Address.objects.all()
     return render(request, 'cmdb_input.html', out)
 
 
@@ -70,20 +70,31 @@ def cmdb_apis(request):
     if database == 'address':
         route = request.POST.get('route')
         port = request.POST.get('port')
-        if method == 'insert':
+        if method == 'insert' or method == 'update':
             Address(ip=pk, route=route, port=port).save()
-        elif method == 'update':
-            address = Address.objects.get(ip=pk)
-            address.route = route
-            address.port = port
-            address.save()
         elif method == 'delete':
             address = Address.objects.get(ip=pk)
             address.delete()
         return redirect(host_list)
 
     elif database == 'host':
-
-        pass
+        ip = request.POST.getlist('ip')
+        print('ip==', ip)
+        group = request.POST.get('group')
+        cpu_core = request.POST.get('cpu_core')
+        memory_total = request.POST.get('memory_total')
+        nic_list = request.POST.get('nic_list')
+        disk_list = request.POST.get('disk_list')
+        if method == 'insert' or method == 'update':
+            Host(
+                hostname=pk,
+                ip=ip, group=group,
+                cpu_core=cpu_core, memory_total=memory_total,
+                nic_list=nic_list, disk_list=disk_list
+            ).save()
+        elif method == 'delete':
+            host = Host.objects.get(hostname=pk)
+            host.delete()
+        return redirect(host_list)
 
     return redirect(host_list)

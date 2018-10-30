@@ -70,7 +70,7 @@
                     {% csrf_token %}
                     <input type="hidden" name="_method" value="{{ b.method }}">
                     <input type="hidden" name="_database" value="host">
-                    <input type="hidden" name="_pk" value="{{ item.ip }}">
+                    <input type="hidden" name="_pk" value="{{ item.hostname }}">
                     <input type="submit" value="{{ b.submit }}">
                 </form>
                 {% endfor %}

@@ -16,9 +16,11 @@
 
         <p>主机名:<input type="text" name="_pk" value="{{ input.hostname }}"></p>
         <p>IP地址:
-            {% for i in input.ip %}
-            <input type="checkbox" name="ip" value="{{ i.ip }}"/>
-            {% endfor %}
+            <select name="ip" multiple="multiple">
+                {% for i in value %}
+                <option value="{{ i.ip }}" selected="">{{ i.ip }}</option>
+                {% endfor %}
+            </select>
         </p>
         <p>群组:<input type="text" name="group" value="{{ input.group }}"></p>
         <p>CPU:<input type="text" name="cpu_core" value="{{ input.cpu_core }}"></p>

@@ -10,7 +10,7 @@ class Address(models.Model):
     port = models.IntegerField(null=False, verbose_name='跳转端口')
 
     def __str__(self):
-        return 'Address:<%s,to:%s:%s>' % (self.ip, self.route, self.port)
+        return '%s,to:%s:%s' % (self.ip, self.route, self.port)
 
 
 #
@@ -32,7 +32,10 @@ class Host(models.Model):
     disk_list = models.TextField(verbose_name='磁盘', default='')
 
     def __str__(self):
-        return 'Host:<%s:%s:%s>' % (self.hostname, self.group, self.ip)
+        return '%s:%s:%s' % (self.hostname, self.group_choices[self.group][1], self.ip)
+
+    def ip_list(self):
+        return ','.join([i.Name for i in self.ip.all()])
 
 
 class Param(models.Model):
