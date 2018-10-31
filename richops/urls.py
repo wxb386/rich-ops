@@ -26,22 +26,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # cmdb
     url(r'^host/$', cmdb.views.host_list, name='host_list'),
+    url(r'^host_info/$', cmdb.views.host_info, name='host_info'),
     url(r'^task/$', cmdb.views.task_list, name='task_list'),
     url(r'^cmdb/input/$', cmdb.views.cmdb_input, name='cmdb_input'),
     url(r'^cmdb/apis/$', cmdb.views.cmdb_apis, name='cmdb_apis'),
 
-    # # cmdb
-    # url(r'^group/input/$', host.views.group_input, name='group_input'),
-    # url(r'^group/apis/$', host.views.group_apis, name='group_apis'),
-    # url(r'^host/input/$', host.views.host_input, name='host_input'),
-    # url(r'^host/apis/$', host.views.host_apis, name='host_apis'),
-    # url(r'^host/', host.views.host_list, name='host_list'),
-    # # task
-    # url(r'^task/input/(?P<func>\w+)/$', task.views.task_input, name='task_input'),
-    # url(r'^param/apis/$', task.views.param_apis, name='param_apis'),
-    # # url(r'^task/input/$', task.views.task_input, name='task_input'),
-    # url(r'^task/apis/$', task.views.task_apis, name='task_apis'),
-    # # url(r'^format/input/$', task.views.format_input, name='format_input'),
-    # url(r'^format/apis/$', task.views.format_apis, name='format_apis'),
-    # url(r'^task/', task.views.task_list, name='task_list'),
 ]

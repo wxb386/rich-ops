@@ -10,7 +10,7 @@ class Address(models.Model):
     port = models.IntegerField(null=False, verbose_name='跳转端口')
 
     def __str__(self):
-        return '%s,to:%s:%s' % (self.ip, self.route, self.port)
+        return '%s' % (self.ip,)
 
 
 #
@@ -19,23 +19,20 @@ class Host(models.Model):
     主键是主机名,一台主机有多个ip地址
     '''
     group_choices = (
-        (0, "WebServer"),
-        (1, "DBServer"),
+        ("WebServer", 0),
+        ("DBServer", 1),
     )
 
     hostname = models.CharField(max_length=64, primary_key=True, verbose_name='主机名')
     ip = models.ManyToManyField(Address, verbose_name='ip地址')
-    group = models.IntegerField(choices=group_choices, verbose_name='群组', null=False, default=0)
+    group = models.CharField(max_length=16, choices=group_choices, verbose_name='群组', null=False, default='WebServer')
     cpu_core = models.IntegerField(verbose_name='CPU', default=0)
     memory_total = models.IntegerField(verbose_name='内存', default=0)
     nic_list = models.TextField(verbose_name='网络接口', default='')
     disk_list = models.TextField(verbose_name='磁盘', default='')
 
     def __str__(self):
-        return '%s:%s:%s' % (self.hostname, self.group_choices[self.group][1], self.ip)
-
-    def ip_list(self):
-        return ','.join([i.Name for i in self.ip.all()])
+        return '%s:%s' % (self.hostname, self.group,)
 
 
 class Param(models.Model):
@@ -50,11 +47,11 @@ class Param(models.Model):
     path = models.CharField(max_length=128, null=False)  # 将要传送到远程机器时,保存的路径
     format = models.CharField(max_length=8, choices=format_choices, null=False, default='txt', verbose_name='格式')
     content = models.TextField(null=False)  # 内容
-    created = models.DateTimeField(auto_created=True)
-    updated = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '参数文件[%s]: %s -> %s ' % (self.format, self.name, self.path)
+        return '%s -> %s' % (self.name, self.path)
 
 
 class Task(models.Model):
@@ -69,5 +66,8 @@ class Task(models.Model):
     path = models.CharField(max_length=128, null=False)  # 将要传送到远程机器时,保存的路径
     format = models.CharField(max_length=8, choices=format_choices, null=False, default='txt', verbose_name='格式')
     content = models.TextField(null=False)  # 内容
-    created = models.DateTimeField(auto_created=True)
-    updated = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '%s -> %s' % (self.name, self.path)

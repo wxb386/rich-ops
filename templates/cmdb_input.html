@@ -7,13 +7,14 @@
         <input type="hidden" name="_method" value="{{ method }}">
         <input type="hidden" name="_database" value="{{ database }}">
 
+        <!-- Addess表录入 -->
         {% if address %}
         <p>IP地址:<input type="text" name="_pk" value="{{ input.ip }}"></p>
         <p>跳转路由:<input type="text" name="route" value="{{ input.route }}"></p>
         <p>跳转端口:<input type="text" name="port" value="{{ input.port }}"></p>
 
+        <!-- Host表录入 -->
         {% elif host %}
-
         <p>主机名:<input type="text" name="_pk" value="{{ input.hostname }}"></p>
         <p>IP地址:
             <select name="ip" multiple="multiple">
@@ -28,9 +29,19 @@
         <p>网络:<input type="text" name="nic_list" value="{{ input.nic_list }}"></p>
         <p>磁盘:<input type="text" name="disk_list" value="{{ input.disk_list }}"></p>
 
+        <!-- Param表录入 -->
         {% elif param %}
+        <p>名称:<input type="text" name="_pk" value="{{ input.name }}"></p>
+        <p>目标路径:<input type="text" name="path" value="{{ input.path }}"></p>
+        <p>格式:<input type="text" name="format" value="{{ input.format }}"></p>
+        <p>内容:<textarea rows="10" cols="80" name="content">{{ input.content }}</textarea></p>
 
+        <!-- Task表录入 -->
         {% elif task %}
+        <p>名称:<input type="text" name="_pk" value="{{ input.name }}"></p>
+        <p>目标路径:<input type="text" name="path" value="{{ input.path }}"></p>
+        <p>格式:<input type="text" name="format" value="{{ input.format }}"></p>
+        <p>内容:<textarea rows="10" cols="80" name="content">{{ input.content }}</textarea></p>
 
         {% endif %}
 

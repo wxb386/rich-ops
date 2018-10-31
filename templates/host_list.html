@@ -58,7 +58,11 @@
         {% for item in hosts %}
         <tr>
             <td>{{ item.hostname }}</td>
-            <td>{{ item.ip }}</td>
+            <td>
+                {% for i in item.ip.all %}
+                {{ i }}<br/>
+                {% endfor %}
+            </td>
             <td>{{ item.group }}</td>
             <td>{{ item.cpu_core }}</td>
             <td>{{ item.memory_total }}</td>
