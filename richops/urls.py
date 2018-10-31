@@ -26,7 +26,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # cmdb
     url(r'^host/$', cmdb.views.host_list, name='host_list'),
-    url(r'^host_info/$', cmdb.views.host_info, name='host_info'),
     url(r'^task/$', cmdb.views.task_list, name='task_list'),
     url(r'^cmdb/input/$', cmdb.views.cmdb_input, name='cmdb_input'),
     url(r'^cmdb/apis/$', cmdb.views.cmdb_apis, name='cmdb_apis'),

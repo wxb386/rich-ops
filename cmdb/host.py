@@ -11,8 +11,8 @@ def host_list(request):
     out['addresses'] = addresses
     out['hosts'] = hosts
     out['button'] = [
-        {'url': '/cmdb/input/', 'method': 'update', 'submit': '修改'},
-        {'url': '/cmdb/apis/', 'method': 'delete', 'submit': '删除'},
+        {'url': '/cmdb/input/', 'method': 'update', 'submit': '修+改'},
+        {'url': '/cmdb/apis/', 'method': 'delete', 'submit': '删+除'},
     ]
     return render(request, 'host_list.html', context=out)
 
