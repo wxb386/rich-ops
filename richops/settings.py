@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import djcelery  # celery模块
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -120,7 +119,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+
+import djcelery  # celery模块
+
 # celery配置
 djcelery.setup_loader()
 BROKER_URL = 'amqp://admin:admin@192.168.80.254:5672'
-CELERY_RESULT_BACKEND = 'amqp://admin:admin@192.168.80.254:5672'
+CELERY_IMPORTS = ('cmdb.tasks')
+# CELERY_RESULT_BACKEND = 'amqp://admin:admin@192.168.80.254:5672'
