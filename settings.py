@@ -6,5 +6,9 @@ SSH_KEY_FILE = os.path.join('/root', '.ssh', 'id_rsa')
 SSH_USERNAME = 'root'
 SSH_PASSWORD = ''
 
+class Config():
+    WAN_ADDR='192.168.80'
+
+
 if __name__ == '__main__':
     pass
