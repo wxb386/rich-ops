@@ -24,13 +24,10 @@ class SSH_Client():
         # 启动一个客户端
         trans.start_client()
 
-        try:
-            # 如果使用rsa密钥登录的话
-            key = paramiko.RSAKey.from_private_key_file(keyfile)
-            trans.auth_publickey(username=user, key=key)
-        except Exception as e:
-            print(e)
-            return None
+        # 如果使用rsa密钥登录的话
+        key = paramiko.RSAKey.from_private_key_file(keyfile)
+        trans.auth_publickey(username=user, key=key)
+
         return trans
 
     def run(self, command):

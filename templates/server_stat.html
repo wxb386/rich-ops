@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}{{ database }}服务器状态{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <table class="table">
+        <tr>
+            <th>主机名</th>
+            <th>CPU</th>
+            <th>内存</th>
+            <th>网卡</th>
+            <th>磁盘</th>
+            <th>服务</th>
+        </tr>
+        <tr>
+            <td>wan:<br/> {% for h in host.wan %}
+                {{ h }}<br/> {% endfor %}
+                lan:<br/> {% for h in host.lan %}
+                {{ h }}<br/> {% endfor %}
+                time:<br/> {{ host.time }}
+            </td>
+            <td>
+                {% for k,v in cpu.items %}
+                {{ k }}:{{ v }}<br/>
+                {% endfor %}
+            </td>
+            <td>
+                {% for k,v in memory.items %}
+                {{ k }}:{{ v }}<br/>
+                {% endfor %}
+            </td>
+            <td>
+                {% for k,v in network.items %}
+                {{ k }}:<br/>
+                {% for k1,v1 in v.items %}
+                {{ k1 }}:{{ v1 }}<br/>
+                {% endfor %}
+                {% endfor %}
+            </td>
+            <td>
+                {% for k,v in disk.items %}
+                {{ k }}:<br/>
+                {% for k1,v1 in v.items %}
+                {{ k1 }}:{{ v1 }}<br/>
+                {% endfor %}
+                {% endfor %}
+            </td>
+            <td>{{ server }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

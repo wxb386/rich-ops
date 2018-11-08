@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^task/$', cmdb.views.task_list, name='task_list'),
     url(r'^cmdb/input/$', cmdb.views.cmdb_input, name='cmdb_input'),
     url(r'^cmdb/apis/$', cmdb.views.cmdb_apis, name='cmdb_apis'),
+    url(r'^cmdb/server/$', cmdb.views.cmdb_server, name='cmdb_server'),
 
 ]

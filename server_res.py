@@ -153,6 +153,16 @@ def server():
     pass
 
 
+def start():
+    cpu()
+    memory()
+    network()
+    disk()
+    host()
+    server()
+    return static
+
+
 if __name__ == '__main__':
     cpu()
     memory()

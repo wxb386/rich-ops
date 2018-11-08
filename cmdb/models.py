@@ -26,16 +26,16 @@ class Address(models.Model):
     created = models.DateTimeField('创建时间', auto_now_add=True)
     updated = models.DateTimeField('更新时间', auto_now=True)
 
-    host = models.ForeignKey(Host, verbose_name='挂载的主机')
+    host = models.ForeignKey(Host, verbose_name='主机', on_delete=models.CASCADE)
 
     def __str__(self):
         return '%s<-%s' % (self.ip, self.host)
 
 
-class Task(models.Model):
-    name = models.CharField('任务名称', max_length=64, primary_key=True)  # 这个任务的名称,任务通过名称进行关联
+class Script(models.Model):
+    name = models.CharField('脚本名称', max_length=64, primary_key=True)  # 这个任务的名称,任务通过名称进行关联
     lang = models.CharField('编写语言', max_length=8, null=False)
-    content = models.TextField('正文内容', null=False)  # 内容
+    content = models.TextField('脚本内容', null=False)  # 内容
     created = models.DateTimeField('创建时间', auto_now_add=True)
     updated = models.DateTimeField('更新时间', auto_now=True)
 
@@ -43,14 +43,14 @@ class Task(models.Model):
         return '%s:%s' % (self.name, self.lang)
 
 
-class Param(models.Model):
-    name = models.CharField('参数名称', max_length=64, primary_key=True)
+class Task(models.Model):
+    name = models.CharField('任务名称', max_length=64, primary_key=True)
     lang = models.CharField('编写语言', max_length=8, null=False)
-    content = models.TextField('正文内容', null=False)  # 内容
+    param = models.TextField('任务参数', null=False, default='')  # 内容
     created = models.DateTimeField('创建时间', auto_now_add=True)
     updated = models.DateTimeField('更新时间', auto_now=True)
 
-    task = models.ForeignKey(Task, verbose_name='归属的任务')
+    task = models.ForeignKey(Script, verbose_name='脚本', on_delete=models.CASCADE)
 
     def __str__(self):
         return '%s<-%s' % (self.name, self.task)

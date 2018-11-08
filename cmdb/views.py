@@ -130,3 +130,9 @@ def task_apis(request, method, pk):
     elif method == 'delete':
         Task.objects.get(name=pk).delete()
     return redirect(task_list)
+
+
+def cmdb_server(request):
+    import server_res
+    server_stat = server_res.start()
+    return render(request, 'server_stat.html', server_stat)
