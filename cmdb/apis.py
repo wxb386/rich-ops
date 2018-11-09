@@ -14,11 +14,11 @@ def cmdb_apis(request):
     out = None
     if database == 'address':
         out = address.apis(request, method, pk)
-    elif database == 'host':
-        return host_apis(request, method, pk)
-    elif database == 'task':
-        return task_apis(request, method, pk)
-    elif database == 'execute':
-        return execute_apis(request, method)
-
-    return HttpResponse('cmdb_apis')
+    # elif database == 'host':
+    #     return host_apis(request, method, pk)
+    # elif database == 'task':
+    #     return task_apis(request, method, pk)
+    # elif database == 'execute':
+    #     return execute_apis(request, method)
+    #
+    # return HttpResponse('cmdb_apis')

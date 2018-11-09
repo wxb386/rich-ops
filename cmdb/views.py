@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
 from .models import Address, Host, Task
-from .apis import apis
+from .apis import cmdb_apis
 
 from time import sleep
 
@@ -37,8 +37,6 @@ def cmdb_input(request):
     return render(request, 'cmdb_input.html', out)
 
 
-
-
 def host_list(request):
     addresses = Address.objects.all()
     hosts = Host.objects.all()
@@ -51,6 +49,7 @@ def host_list(request):
     ]
     res = render(request, 'host_list.html', context=out)
     return res
+
 
 def host_apis(request, method, pk):
     ip = request.POST.getlist('ip')
