@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid">
+    <form action="/apis/" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="_method" value="choose">
+        <input type="hidden" name="_database" value="execute">
+        <div>
+            <select name="choose_ip" multiple="multiple">
+                {% for i in all_ip %}
+                <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <select name="choose_task" multiple="multiple">
+                {% for i in all_task %}
+                <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <input type="submit" value="执行">
+        </div>
+    </form>
+</div>
+{% endblock %}

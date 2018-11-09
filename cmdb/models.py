@@ -8,15 +8,11 @@ from django.db import models
 class Host(models.Model):
     hostname = models.CharField('主机名', max_length=64, primary_key=True)
     group = models.CharField('群组', max_length=16, default='WebServer')
-    cpu_core = models.IntegerField('CPU', default=0)
-    memory_total = models.IntegerField('内存', default=0)
-    nic_list = models.TextField('网络接口', default='')
-    disk_list = models.TextField('磁盘', default='')
     created = models.DateTimeField('创建时间', auto_now_add=True)
     updated = models.DateTimeField('更新时间', auto_now=True)
 
     def __str__(self):
-        return '%s:%s' % (self.hostname, self.group,)
+        return '%s:%s' % (self.hostname, self.group)
 
 
 class Address(models.Model):
@@ -54,3 +50,14 @@ class Task(models.Model):
 
     def __str__(self):
         return '%s<-%s' % (self.name, self.task)
+
+
+class Job(models.Model):
+    task_name = models.ForeignKey(Task, on_delete=models.CASCADE, verbose_name='任务')
+    host_ip = models.ForeignKey(Address, on_delete=models.CASCADE, verbose_name='主机地址')
+    status = models.CharField('状态', max_length=32, null=False, default='已创建')
+    created = models.DateTimeField('创建时间', auto_now_add=True)
+    updated = models.DateTimeField('更新时间', auto_now=True)
+
+    def __str__(self):
+        return '%s+%s' % (self.task_name, self.host_ip)

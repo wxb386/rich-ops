@@ -16,19 +16,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from . import views
-import cmdb.views
 
 urlpatterns = [
+    url(r'^', include('cmdb.urls')),
     url(r'^$', views.index, name='index'),
     url(r'^login$', views.do_login, name='login'),
     url(r'^logout$', views.do_logout, name='logout'),
     url(r'^home$', views.home, name='home'),
     url(r'^admin/', admin.site.urls),
     # cmdb
-    url(r'^host/$', cmdb.views.host_list, name='host_list'),
-    url(r'^task/$', cmdb.views.task_list, name='task_list'),
-    url(r'^cmdb/input/$', cmdb.views.cmdb_input, name='cmdb_input'),
-    url(r'^cmdb/apis/$', cmdb.views.cmdb_apis, name='cmdb_apis'),
-    url(r'^cmdb/server/$', cmdb.views.cmdb_server, name='cmdb_server'),
+    # url(r'^cmdb/', include('cmdb.urls')),
 
 ]

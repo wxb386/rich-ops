@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
 from .models import Address, Host, Task
+from .apis import apis
 
 from time import sleep
 
@@ -36,21 +37,6 @@ def cmdb_input(request):
     return render(request, 'cmdb_input.html', out)
 
 
-def cmdb_apis(request):
-    if request.method != 'POST':
-        return render(request, 'index.html')
-    database = request.POST.get('_database')
-    method = request.POST.get('_method')
-    pk = request.POST.get('_pk')
-
-    if database == 'address':
-        return address_apis(request, method, pk)
-    elif database == 'host':
-        return host_apis(request, method, pk)
-    elif database == 'task':
-        return task_apis(request, method, pk)
-
-    return HttpResponse('cmdb_apis')
 
 
 def host_list(request):
@@ -65,18 +51,6 @@ def host_list(request):
     ]
     res = render(request, 'host_list.html', context=out)
     return res
-
-
-def address_apis(request, method, pk):
-    route = request.POST.get('route')
-    port = request.POST.get('port')
-    if method == 'insert' or method == 'update':
-        Address(ip=pk, route=route, port=port).save()
-    elif method == 'delete':
-        address = Address.objects.get(ip=pk)
-        address.delete()
-    return redirect(host_list)
-
 
 def host_apis(request, method, pk):
     ip = request.POST.getlist('ip')
@@ -130,6 +104,20 @@ def task_apis(request, method, pk):
     elif method == 'delete':
         Task.objects.get(name=pk).delete()
     return redirect(task_list)
+
+
+def execute_apis(request, method):
+    return HttpResponse(request.POST)
+
+
+def task_choose(request):
+    address = Address.objects.all()
+    tasks = Task.objects.all()
+    out = {
+        'all_ip': address,
+        'all_task': tasks,
+    }
+    return render(request, 'execute_01.html', out)
 
 
 def cmdb_server(request):
