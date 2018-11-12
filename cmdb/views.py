@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
 from .models import Address, Host, Task
 from .apis import cmdb_apis
+from .jobs import jobs_list, jobs_input, jobs_apis
 
 from time import sleep
 

@@ -8,6 +8,7 @@ from django.db import models
 class Host(models.Model):
     hostname = models.CharField('主机名', max_length=64, primary_key=True)
     group = models.CharField('群组', max_length=16, default='WebServer')
+    other = models.TextField('其他', default='{}')
     created = models.DateTimeField('创建时间', auto_now_add=True)
     updated = models.DateTimeField('更新时间', auto_now=True)
 
@@ -56,6 +57,7 @@ class Job(models.Model):
     task_name = models.ForeignKey(Task, on_delete=models.CASCADE, verbose_name='任务')
     host_ip = models.ForeignKey(Address, on_delete=models.CASCADE, verbose_name='主机地址')
     status = models.CharField('状态', max_length=32, null=False, default='已创建')
+    other = models.TextField('其他', default='')
     created = models.DateTimeField('创建时间', auto_now_add=True)
     updated = models.DateTimeField('更新时间', auto_now=True)
 
