@@ -22,6 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%_1^hzhs+-2bzom_!qza$fxp^fqh3@%_43jhowx@2_zf)1%aty'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = False
 DEBUG = True
 
 ALLOWED_HOSTS = '*'
@@ -36,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djcelery',
+    'mongoengine',
     'cmdb',
+    'news',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +81,22 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.dummy',
+#     }
+# }
+# MONGODB_DATABASES = {
+#     'default': {
+#         'name': 'django_test',
+#         'host': '192.168.80.254',
+#         'tz_aware': True,
+#     },
+# }
+# from mongoengine import connect
+#
+# connect(MONGODB_DATABASES['default']['name'],
+#         host=MONGODB_DATABASES['default']['host'])
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -116,8 +135,8 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'news/static'),
 ]
-
 
 import djcelery  # celery模块
 
