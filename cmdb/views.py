@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, ListView
-from .models import Address, Host, Script, Task, Job
+from .models import Job
+from .tasks import remote_execute
 
 
 # Create your views here.
@@ -15,8 +16,6 @@ class IndexView(TemplateView):
 
 
 def run(request, job_id):
-    job = get_object_or_404(Job, pk=job_id)
-    if job.status == '已创建':
-        job.status = '已完成'
-        job.save()
+    # job = get_object_or_404(Job, pk=job_id)
+    remote_execute.delay(job_id)
     return redirect('cmdb:index')
