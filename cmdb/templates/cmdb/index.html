@@ -1,0 +1,28 @@
+{% extends 'cmdb/base.html' %}
+{% block title %}作业列表{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <h3>欢迎使用CMDB</h3>
+    {% if error_message %}<p>{{ error_message }}</p>{% endif %}
+    <table class="table">
+        <tr>
+            <th>序号</th>
+            <th>任务名称</th>
+            <th>主机地址</th>
+            <th>状态</th>
+            <th>更新时间</th>
+            <th>操作</th>
+        </tr>
+        {% for item in all_jobs %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.task_name }}</td>
+            <td>{{ item.host_ip }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.updated }}</td>
+            <td><a href="{% url 'cmdb:run' item.id %}">启动</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
