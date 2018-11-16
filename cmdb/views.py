@@ -16,6 +16,5 @@ class IndexView(TemplateView):
 
 
 def run(request, job_id):
-    # job = get_object_or_404(Job, pk=job_id)
     remote_execute.delay(job_id)
     return redirect('cmdb:index')
