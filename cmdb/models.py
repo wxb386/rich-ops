@@ -18,6 +18,7 @@ class Host(models.Model):
 
 # 地址模型,通常一个主机会有多个地址,一对多的关系
 class Address(models.Model):
+    #
     ip = models.GenericIPAddressField('ip地址', primary_key=True)
     route = models.GenericIPAddressField('路由地址', null=False)
     port = models.IntegerField('跳转端口', null=False)
@@ -46,14 +47,15 @@ class Script(models.Model):
 class Task(models.Model):
     name = models.CharField('任务名称', max_length=64, primary_key=True)
     lang = models.CharField('编写语言', max_length=8, null=False)
+    config = models.TextField('config', null=False, default='')
     param = models.TextField('任务参数', null=False, default='')  # 内容
     created = models.DateTimeField('创建时间', auto_now_add=True)
     updated = models.DateTimeField('更新时间', auto_now=True)
 
-    task = models.ForeignKey(Script, verbose_name='脚本', on_delete=models.CASCADE)
+    script = models.ForeignKey(Script, verbose_name='脚本', on_delete=models.CASCADE)
 
     def __str__(self):
-        return '%s<-%s' % (self.name, self.task)
+        return '%s<-%s' % (self.name, self.script)
 
 
 # 作业模型,讲地址和任务关联起来,进行进度管理
