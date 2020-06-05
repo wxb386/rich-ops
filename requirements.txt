@@ -12,7 +12,7 @@ chardet==3.0.4
 Click==7.0
 cryptography==2.3.1
 defusedxml==0.5.0
-Django==1.11.16
+Django==1.11.29
 django-appconf==1.0.2
 django-braces==1.10.0
 django-celery==3.2.2
